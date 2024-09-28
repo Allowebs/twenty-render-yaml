@@ -1,108 +1,53 @@
+# Exported from Render on 2024-09-28T01:03:12Z
 services:
 - type: web
-  name: server
+  name: twenty:server
   runtime: image
   image:
-    url: twentycrm/twenty:v0.24.1
-  dockerCommand: "sh -c ./scripts/render-run.sh"
-  autoDeploy: false
+    url: docker.io/twentycrm/twenty:v0.24.1
+    creds:
+      fromRegistryCreds:
+        name: dockerhub
   plan: standard
   envVars:
-    - key: FRONT_BASE_URL
-      fromService:
-        name: server
-        type: web
-        envVarKey: RENDER_EXTERNAL_URL
-    - key: SERVER_URL
-      fromService:
-        name: server
-        type: web
-        envVarKey: RENDER_EXTERNAL_URL
-    - key: ACCESS_TOKEN_SECRET
-      generateValue: true
-    - key: LOGIN_TOKEN_SECRET
-      generateValue: true
-    - key: REFRESH_TOKEN_SECRET
-      generateValue: true
-    - key: FILE_TOKEN_SECRET
-      generateValue: true
-  #  - key: PG_DATABASE_HOST
-   #   fromService:
-  #      name: twenty_postgres
-  #      type: web
-  #      property: host
-#    - key: PG_DATABASE_PORT
-#      fromService:
-#        name: twenty_postgres
-#        type: web
-#        property: port
+  - key: REFRESH_TOKEN_SECRET
+    sync: false
+  - key: LOGIN_TOKEN_SECRET
+    sync: false
+  - key: FILE_TOKEN_SECRET
+    sync: false
+  - key: ACCESS_TOKEN_SECRET
+    sync: false
+  - fromGroup: Twenty
+  region: oregon
+  dockerCommand: yarn run start:prod
+  domains:
+  - crm.neobox.io
   disk:
-    name: twenty-disk
+    name: disk
     mountPath: /.local-storage
     sizeGB: 5
+version: "1"
 - type: worker
-  name: worker
+  name: twenty:worker
   runtime: image
   image:
-    url: twentycrm/twenty:v0.24.1
-  dockerCommand: "sh -c ./scripts/render-worker.sh"
-  autoDeploy: false
+    url: docker.io/twentycrm/twenty:v0.24.1
+    creds:
+      fromRegistryCreds:
+        name: dockerhub
   plan: standard
   envVars:
-    - key: FRONT_BASE_URL
-      fromService:
-        name: server
-        type: web
-        envVarKey: RENDER_EXTERNAL_URL
-    - key: SERVER_URL
-      fromService:
-        name: server
-        type: web
-        envVarKey: RENDER_EXTERNAL_URL
-    - key: ACCESS_TOKEN_SECRET
-      generateValue: true
-    - key: LOGIN_TOKEN_SECRET
-      generateValue: true
-    - key: REFRESH_TOKEN_SECRET
-      generateValue: true
-    - key: FILE_TOKEN_SECRET
-      generateValue: true
- #   - key: PG_DATABASE_HOST
- #     fromService:
- #       name: twenty_postgres
- #      type: web
-#        property: host
-#    - key: PG_DATABASE_PORT
-#      fromService:
-#        name: twenty_postgres
-#        type: web
-#        property: port
-#- type: web
-#  name: twenty_postgres
-#  plan: starter
-#  runtime: image
-#  image:
-#    url: twentycrm/twenty-postgres:latest
-#  autoDeploy: false
-#  disk:
-#    name: data
-#    mountPath: /var/lib/postgresql/data
- #   sizeGB: 10
-#  envVars:
-#  - key: POSTGRES_USER
-#    value: postgres
-#  - key: POSTGRES_PASSWORD
-#    value: postgres
-#  - key: POSTGRES_DB
-#    value: default
-databases:
-  # A Pro database instance with a read replica
-  - name: postgrestwenty # Required
-    postgresMajorVersion: "16" # Default: most recent supported version
-    region: oregon  # Default: oregon
-    plan: standard # Default: starter
-    databaseName: postgrestwenty # Default: generated value based on name
-    user: postgrestwenty # Default: generated value based on name
-    ipAllowList: # Default: allows all connections
-      - source: 0.0.0.0/0
-        description: everywhere
+  - key: REFRESH_TOKEN_SECRET
+    sync: false
+  - key: LOGIN_TOKEN_SECRET
+    sync: false
+  - key: FILE_TOKEN_SECRET
+    sync: false
+  - key: ACCESS_TOKEN_SECRET
+    sync: false
+  - fromGroup: Twenty
+  region: oregon
+  dockerCommand: yarn run worker:prod
+version: "1"
+
