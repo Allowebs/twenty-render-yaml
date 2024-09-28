@@ -26,16 +26,16 @@ services:
       generateValue: true
     - key: FILE_TOKEN_SECRET
       generateValue: true
-    - key: PG_DATABASE_HOST
-      fromService:
-        name: twenty_postgres
-        type: web
-        property: host
-    - key: PG_DATABASE_PORT
-      fromService:
-        name: twenty_postgres
-        type: web
-        property: port
+  #  - key: PG_DATABASE_HOST
+   #   fromService:
+  #      name: twenty_postgres
+  #      type: web
+  #      property: host
+#    - key: PG_DATABASE_PORT
+#      fromService:
+#        name: twenty_postgres
+#        type: web
+#        property: port
   disk:
     name: twenty-disk
     mountPath: /.local-storage
@@ -67,16 +67,16 @@ services:
       generateValue: true
     - key: FILE_TOKEN_SECRET
       generateValue: true
-    - key: PG_DATABASE_HOST
-      fromService:
-        name: twenty_postgres
-        type: web
-        property: host
-    - key: PG_DATABASE_PORT
-      fromService:
-        name: twenty_postgres
-        type: web
-        property: port
+ #   - key: PG_DATABASE_HOST
+ #     fromService:
+ #       name: twenty_postgres
+ #      type: web
+#        property: host
+#    - key: PG_DATABASE_PORT
+#      fromService:
+#        name: twenty_postgres
+#        type: web
+#        property: port
 #- type: web
 #  name: twenty_postgres
 #  plan: starter
