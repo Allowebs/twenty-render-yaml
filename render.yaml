@@ -77,7 +77,7 @@ services:
     name: twenty-disk
     mountPath: /.local-storage
     sizeGB: 5
-- type: pserv
+- type: web
   name: twenty_postgres
   plan: starter
   runtime: image
