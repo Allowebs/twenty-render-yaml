@@ -77,21 +77,32 @@ services:
         name: twenty_postgres
         type: web
         property: port
-- type: web
-  name: twenty_postgres
-  plan: starter
-  runtime: image
-  image:
-    url: twentycrm/twenty-postgres:latest
-  autoDeploy: false
-  disk:
-    name: data
-    mountPath: /var/lib/postgresql/data
-    sizeGB: 10
-  envVars:
-  - key: POSTGRES_USER
-    value: postgres
-  - key: POSTGRES_PASSWORD
-    value: postgres
-  - key: POSTGRES_DB
-    value: default
+#- type: web
+#  name: twenty_postgres
+#  plan: starter
+#  runtime: image
+#  image:
+#    url: twentycrm/twenty-postgres:latest
+#  autoDeploy: false
+#  disk:
+#    name: data
+#    mountPath: /var/lib/postgresql/data
+ #   sizeGB: 10
+#  envVars:
+#  - key: POSTGRES_USER
+#    value: postgres
+#  - key: POSTGRES_PASSWORD
+#    value: postgres
+#  - key: POSTGRES_DB
+#    value: default
+databases:
+  # A Pro database instance with a read replica
+  - name: postgrestwenty # Required
+    postgresMajorVersion: "16" # Default: most recent supported version
+    region: oregon  # Default: oregon
+    plan: standard # Default: starter
+    databaseName: postgrestwenty # Default: generated value based on name
+    user: postgrestwenty # Default: generated value based on name
+    ipAllowList: # Default: allows all connections
+      - source: 0.0.0.0/0
+        description: everywhere
