@@ -4,7 +4,7 @@ services:
   name: twenty:worker
   runtime: image
   image:
-    url: docker.io/twentycrm/twenty:v0.24.1
+    url: docker.io/twentycrm/twenty:latest
     creds:
       fromRegistryCreds:
         name: dockerhub
@@ -25,7 +25,7 @@ services:
   name: twenty:server
   runtime: image
   image:
-    url: docker.io/twentycrm/twenty:v0.24.1
+    url: docker.io/twentycrm/twenty:latest
     creds:
       fromRegistryCreds:
         name: dockerhub
